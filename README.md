@@ -74,6 +74,44 @@ A full-stack web application for listing and booking vacation rentals, built wit
 - **joi** - Schema validation
 - **dotenv** - Environment variable management
 
+## 🏗️ System Architecture
+
+```
+┌──────────────────┐
+│      Browser     │
+│  (User / Client) │
+└─────────┬────────┘
+          │ HTTP Requests
+          ▼
+┌──────────────────┐
+│   Express Server │
+│   (Node.js)      │
+│                  │
+│ Routes / Auth    │
+│ Controllers      │
+│ Middleware       │
+└───────┬────┬─────┘
+        │    │
+        │    │ Image Uploads
+        │    ▼
+        │  ┌────────────────┐
+        │  │  Cloudinary     │
+        │  │  (Images CDN)   │
+        │  └────────────────┘
+        │
+        ▼
+┌──────────────────┐
+│   MongoDB Atlas  │
+│   (Database)     │
+│ Listings, Users  │
+│ Reviews, Sessions│
+└──────────────────┘
+```
+
+**Architecture Explanation:**
+
+StayNest follows a client-server architecture where the frontend sends requests to a Node.js and Express backend. The backend handles authentication, listings, and reviews, stores data in MongoDB Atlas, and uploads images to Cloudinary. The entire application is deployed on Render.
+
 ## 📋 Prerequisites
 
 Before running this project, make sure you have the following installed:
