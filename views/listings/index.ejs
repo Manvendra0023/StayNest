@@ -3,18 +3,31 @@
 <!-- CATEGORY FILTER BAR -->
 <div class="filters-wrapper border-bottom">
 
-  <div id="filters">
-    <% categories.forEach(cat => { %>
-      <a
-        href="/listings?category=<%= encodeURIComponent(cat.name) %>"
-        class="filter-link <%= activeCategory === cat.name ? 'active' : '' %>"
-      >
-        <div class="filter">
-          <i class="fa-solid <%= cat.icon %>"></i>
-          <p><%= cat.name %></p>
-        </div>
-      </a>
-    <% }) %>
+  <!-- FIXED HOME + SCROLLABLE CATEGORIES -->
+  <div class="category-bar">
+
+    <!-- FIXED HOME (does not scroll) -->
+    <a href="/listings" class="filter-link fixed-home">
+      <div class="filter">
+        <i class="fa-solid fa-house-user"></i>
+        <p>All Listing</p>
+      </div>
+    </a>
+
+    <!-- SCROLLABLE CATEGORIES -->
+    <div id="filters" class="category-scroll">
+      <% categories.forEach(cat => { %>
+        <a
+          href="/listings?category=<%= encodeURIComponent(cat.name) %>"
+          class="filter-link <%= activeCategory === cat.name ? 'active' : '' %>"
+        >
+          <div class="filter">
+            <i class="fa-solid <%= cat.icon %>"></i>
+            <p><%= cat.name %></p>
+          </div>
+        </a>
+      <% }) %>
+    </div>
   </div>
 
   <!-- FIXED TOGGLE -->
@@ -29,8 +42,9 @@
       <label class="form-check-label" for="switchCheckDefault">Display total after taxes</label>
     </div>
   </div>
-
 </div>
+
+
 <div class="listings mt-3">
     <% for (let listing of allListings) { %>
 
@@ -78,4 +92,19 @@
             }
         }
     });
+</script>
+
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const activeCategory = document.querySelector("#filters .filter-link.active");
+
+    if (activeCategory) {
+      activeCategory.scrollIntoView({
+        behavior: "smooth",
+        inline: "center",
+        block: "nearest"
+      });
+    }
+  });
 </script>

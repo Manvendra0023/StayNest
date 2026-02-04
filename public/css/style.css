@@ -123,146 +123,163 @@ body{
 
 
 /* Icon bar */
-.category-link {
-  color: inherit;
-  text-decoration: none;
-}
 
-.category-link:hover {
-  text-decoration: underline;
-}
+/* Container holding Home + scrollable categories */
+  .category-bar {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    overflow: hidden;  
+  }
+
+  /* Fixed Home button */
+ .fixed-home {
+    flex-shrink: 0;     
+    margin-right: 0.5rem;
+  }
 
 
 /* nav bar icons (index.ejs)*/
 
-    /* Wrapper for icons + toggle */
-    .filters-wrapper {
-        display: flex;
-        align-items: center;
-        gap: 1.5rem;
-        padding: 0.5rem 1.5rem;
-        margin-top: 0.25rem;
-        border-bottom: 1px solid #eee;
-    }
+  /* Wrapper for icons + toggle */
+  .filters-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 0.5rem 1.5rem;
+    margin-top: 0.25rem;
+    border-bottom: 1px solid #eee;
+  }
 
-    /* SCROLL ONLY ICONS */
-    #filters {
-        display: flex;
-        gap: 0.1rem;
-        overflow-x: auto;
-        white-space: nowrap;
-        scroll-behavior: smooth;
-        flex: 1;
-        padding: 0.5rem 0;
-    }
+  /* SCROLL ONLY ICONS */
+  #filters {
+    display: flex;
+    gap: 0.1rem;
+    overflow-x: auto;
+    white-space: nowrap;
+    scroll-behavior: smooth;
+    flex: 1;
+    padding: 0.5rem 0;
+  }
 
     
-    /* Hide scrollbar (Airbnb style) */
-    #filters::-webkit-scrollbar {
-        display: none;
-    }
+  /* Hide scrollbar (Airbnb style) */
+  #filters::-webkit-scrollbar {
+    display: none;
+  }
     
-    #filters {
-        scrollbar-width: none;
-    }
+  #filters {
+    scrollbar-width: none;
+  }
 
-    .filter {
-        min-width: 90px;       
-        text-align: center;
-        opacity: 0.8;
-        cursor: pointer;
+  .filter {
+    min-width: 90px;       
+    text-align: center;
+    opacity: 0.8;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 4px;
+    transition: all 0.2s ease;
+  }
 
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        padding-bottom: 4px;
-        transition: all 0.2s ease;
-    }
+  /* Hover (only if NOT active) */
+  .filter-link:not(.active):hover .filter {
+    color: #FF385C;
+    opacity: 1;
+  }
 
-    .filter:hover {
-        opacity: 1;
-    }
+  /* ACTIVE (stays highlighted) */
+  .filter-link.active .filter {
+    color: #FF385C;
+    opacity: 1;
+    font-weight: 600;
+  }
 
-    .filter p {
-        font-size: 0.8rem;
-        margin-top: 0.2rem;
-    }
+  .filter p {
+    font-size: 0.8rem;
+    margin-top: 0.2rem;
+  }
 
-    /* Fixed toggle */
-    .tax-toggle {
-        flex-shrink: 0; 
-        white-space: nowrap;
-    }
+  .filter-link {
+    text-decoration: none;
+    color: inherit;
+    display: inline-block;
+  }
 
-    .tax-info {
-        display: none;
-    }
+  /* underline */
+  .filter-link.active .filter::after {
+    content: "";
+    display: block;
+    width: 18px;
+    height: 2px;
+    background-color: #FF385C;
+    margin: 4px auto 0;
+    border-radius: 2px;
+    transition: width 0.25s ease;
+  }
 
-    .tax-toggle {
-        border: 1px solid black;
-        border-radius: 1rem;
-        height: 2.5rem;
-        padding: 0 1rem ;
-        display: flex;
-        align-items: center;      
-        justify-content: center;  
-        gap: 0.75rem;
-        white-space: nowrap;
-    }
+  /* Fixed toggle */
+  .tax-info {
+    display: none;
+  }
 
-    .tax-toggle label {
-        font-size: 0.85rem;
-        font-weight: 500;
-        margin: 0;
-    }
+  .tax-toggle {
+    flex-shrink: 0; 
+    white-space: nowrap;
+    border: 1px solid black;
+    border-radius: 1rem;
+    height: 2.5rem;
+    padding: 0 1rem ;
+    display: flex;
+    align-items: center;      
+    justify-content: center;  
+    gap: 0.75rem;
+  }
 
-    .filter-link {
-        text-decoration: none;
-        color: inherit;
-        display: inline-block;
-    }
-
-    /* Hover effect */
-        .filter-link:hover {
-        color: #FF385C;
-    }
+  .tax-toggle label {
+    font-size: 0.85rem;
+    font-weight: 500;
+    margin: 0;
+  }
 
 
 /* Host your place styling */
-    .host-link {
-        font-weight: 600;          
-        margin-right: 1.5rem;   
-        display: flex;
-        align-items: center;
-        gap: 6px;                 
-    }
+  .host-link {
+    font-weight: 600;          
+    margin-right: 1.5rem;   
+    display: flex;
+    align-items: center;
+    gap: 6px;                 
+  }
 
-/* Optional hover effect */
-    .host-link:hover {
-        text-decoration: none;
-        opacity: 0.85;
-    }
+  /* Optional hover effect */
+  .host-link:hover {
+    text-decoration: none;
+    opacity: 0.85;
+  }
 
 
-/* Premium "No results" message */
-    .text-muted {
-        font-size: 2rem;         
-        font-weight: 600;         
-        color: #1a3a83 !important;
-        letter-spacing: 0.5px;
-    }
+  /* Premium "No results" message */
+  .text-muted {
+    font-size: 2rem;         
+    font-weight: 600;         
+    color: #1a3a83 !important;
+    letter-spacing: 0.5px;
+  }
 
 /* Emoji styling */
-    .text-muted::first-letter {
-        font-size: 3rem;        /* Bigger emoji */
-        margin-right: 0.5rem;
-    }
+  .text-muted::first-letter {
+    font-size: 3rem;        /* Bigger emoji */
+    margin-right: 0.5rem;
+  }
 
 /* Center spacing */
-    .text-center {
-        margin-top: 5rem !important;
-    }
+  .text-center {
+    margin-top: 5rem !important;
+  }
 
 /* Privacy , Terms&condition ,  cookies, gdpr*/
 /* Legal pages */
@@ -571,3 +588,12 @@ a.nav-link.host-link {
 .host-link:hover {
   color: #0ea5e9;      
 }
+
+/* Sticky category bar */
+/* .filters-wrapper {
+  position: sticky;
+  top: 5rem;              /* height of navbar */
+  z-index: 1000;
+  background-color: #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+} */
