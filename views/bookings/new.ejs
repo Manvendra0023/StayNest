@@ -1,0 +1,93 @@
+<% layout("/layouts/boilerplate") %>
+
+<div class="booking-page">
+  <div class="booking-container">
+    
+    <!-- Listing preview -->
+    <div class="booking-listing-preview">
+      <img src="<%= listing.image?.url || '/images/default.jpg' %>" alt="<%= listing.title %>" class="booking-listing-img">
+      <div class="booking-listing-info">
+        <h5><%= listing.title %></h5>
+        <p class="text-muted"><i class="fa-solid fa-location-dot text-danger"></i> <%= listing.location %>, <%= listing.country %></p>
+        <p class="booking-price-tag">₹<%= listing.price?.toLocaleString("en-IN") %> <span>/ night</span></p>
+      </div>
+    </div>
+
+    <hr>
+
+    <!-- Booking Form -->
+    <h4 class="mb-4"><i class="fa-solid fa-calendar-check text-danger"></i> Choose your dates</h4>
+    
+    <form action="/listings/<%= listing._id %>/book" method="POST" id="bookingForm" class="needs-validation" novalidate>
+      <div class="booking-dates-grid">
+        <div class="form-group">
+          <label class="form-label fw-semibold">Check-in Date</label>
+          <input 
+            type="text" 
+            id="checkIn" 
+            name="booking[checkIn]" 
+            class="form-control booking-date-input"
+            placeholder="Select check-in"
+            required
+            readonly
+          >
+          <div class="invalid-feedback">Please select a check-in date.</div>
+        </div>
+        <div class="form-group">
+          <label class="form-label fw-semibold">Check-out Date</label>
+          <input 
+            type="text" 
+            id="checkOut" 
+            name="booking[checkOut]" 
+            class="form-control booking-date-input"
+            placeholder="Select check-out"
+            required
+            readonly
+          >
+          <div class="invalid-feedback">Please select a check-out date.</div>
+        </div>
+      </div>
+
+      <div class="form-group mt-3">
+        <label class="form-label fw-semibold">Number of Guests</label>
+        <input 
+          type="number" 
+          name="booking[guests]" 
+          class="form-control" 
+          min="1" 
+          max="<%= listing.maxGuests %>"
+          value="1"
+          required
+        >
+        <small class="text-muted">Maximum <%= listing.maxGuests %> guests</small>
+      </div>
+
+      <!-- Price Summary -->
+      <div class="price-summary mt-4" id="priceSummary" style="display:none;">
+        <div class="price-row">
+          <span id="nightsText">0 nights × ₹<%= listing.price?.toLocaleString("en-IN") %></span>
+          <span id="totalText">₹0</span>
+        </div>
+        <div class="price-row price-total">
+          <strong>Total (incl. 18% GST)</strong>
+          <strong id="grandTotal">₹0</strong>
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-danger w-100 mt-4 book-confirm-btn">
+        <i class="fa-solid fa-check-circle"></i> Confirm Booking
+      </button>
+      <a href="/listings/<%= listing._id %>" class="btn btn-outline-secondary w-100 mt-2">← Back to Listing</a>
+    </form>
+
+  </div>
+</div>
+
+<!-- Pass blocked dates to JS -->
+<script>
+  const blockedDates = <%- JSON.stringify(existingBookings.map(b => ({
+    from: new Date(b.checkIn).toISOString().split('T')[0],
+    to: new Date(b.checkOut).toISOString().split('T')[0]
+  }))) %>;
+  const pricePerNight = <%= listing.price %>;
+</script>

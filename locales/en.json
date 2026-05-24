@@ -1,0 +1,77 @@
+{
+  "nav": {
+    "explore": "Explore",
+    "host": "Host your place",
+    "login": "Log in",
+    "signup": "Sign up",
+    "logout": "Log out",
+    "profile": "My Profile",
+    "bookings": "My Bookings",
+    "inbox": "Inbox",
+    "favorites": "Wishlist",
+    "admin": "Admin"
+  },
+  "home": {
+    "hero": "Find your next stay",
+    "tagline": "StayNest - Find Your Comfort Away from Home",
+    "subtitle": "Discover unique places to stay, anywhere in the world",
+    "explore": "Explore Stays",
+    "featured": "Featured Stays",
+    "viewAll": "View all →",
+    "destinations": "Popular Destinations",
+    "destinationsSubtitle": "Discover our most visited places",
+    "host": "Have a Property?",
+    "hostSub": "List your property on StayNest and reach thousands of travelers."
+  },
+  "listing": {
+    "allListings": "All Listings",
+    "noResults": "No stays found matching your search.",
+    "perNight": "/ night",
+    "gst": "+18% GST",
+    "totalTax": "Display total after taxes",
+    "category": "Category",
+    "description": "Description",
+    "price": "Price",
+    "location": "Location",
+    "country": "Country",
+    "ownedBy": "Owned by",
+    "book": "Book Now",
+    "contactHost": "Contact Host",
+    "update": "Update",
+    "delete": "Delete"
+  },
+  "booking": {
+    "checkIn": "Check-in Date",
+    "checkOut": "Check-out Date",
+    "guests": "Guests",
+    "totalPrice": "Total Price",
+    "confirm": "Confirm Booking",
+    "nights": "nights",
+    "perNight": "per night",
+    "myBookings": "My Bookings",
+    "cancel": "Cancel Booking",
+    "status": "Status",
+    "confirmed": "Confirmed",
+    "pending": "Pending",
+    "cancelled": "Cancelled"
+  },
+  "auth": {
+    "login": "Login",
+    "signup": "Sign Up on StayNest",
+    "username": "Username",
+    "email": "Email",
+    "password": "Password",
+    "submit": "Submit"
+  },
+  "footer": {
+    "brand": "© StayNest Private Limited",
+    "about": "About",
+    "careers": "Careers",
+    "contact": "Contact",
+    "help": "Help",
+    "privacy": "Privacy",
+    "terms": "Terms",
+    "cookies": "Cookies",
+    "gdpr": "GDPR"
+  }
+}

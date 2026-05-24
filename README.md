@@ -329,15 +329,133 @@ This project is licensed under the ISC License.
 
 For support, email manvendrakumar0023@gmail.com or open an issue in the repository.
 
+## 🚀 New Features Added (v2.0)
+
+### 📅 Booking System with Calendar
+- Interactive date picker (Flatpickr) with blocked dates
+- Conflict detection prevents double-bookings
+- Dynamic price calculator with 18% GST
+- Booking confirmation page with details summary
+- "My Bookings" page with cancel functionality
+
+### 🗺️ Map Integration (Leaflet.js + OpenStreetMap)
+- Free, no API key required
+- Auto-geocoding of listing locations via OpenStreetMap Nominatim
+- Single-listing show page map with radius circle
+- Multi-listing index map with clickable popups
+
+### 🔍 Advanced Search & Filters
+- Price range (min/max) filter
+- Guest count filter
+- Sort by: Price Low→High, Price High→Low, Newest
+- Collapsible filter panel with active indicator
+
+### 👤 User Profiles & Favorites/Wishlist
+- Profile page with avatar, bio, listing count
+- Avatar upload via Cloudinary
+- Wishlist (favorites) with AJAX heart toggle
+- Toast notifications for wishlist actions
+
+### 📧 Email Notifications (Nodemailer)
+- Welcome email on signup (HTML template)
+- Booking confirmation email to guest
+- New booking notification email to host
+- Gracefully disabled if EMAIL_USER/EMAIL_PASS not set
+
+### 💬 Host-Guest Chat
+- In-app messaging between hosts and guests
+- "Contact Host" button on every listing
+- Inbox with all conversations
+- Unread message count badge in navbar
+- Chat bubble UI (blue = me, white = them)
+
+### 🌐 Multi-language Support (i18n)
+- English & Hindi locale files
+- Language toggle in navbar (🇬🇧 EN / 🇮🇳 हिं)
+- Language preference saved in cookie & user profile
+
+### 🛠️ Admin Dashboard
+- Stats: total listings, users, bookings, reviews, revenue
+- Manage all listings (search, edit, delete)
+- Manage all users (search, grant/revoke admin, delete)
+- Manage all bookings (full table view)
+- Protected by `isAdmin` middleware
+
+---
+
+## 🛠️ Additional Tech Stack (v2.0)
+
+- **Flatpickr** — Date picker for bookings
+- **Leaflet.js** — Open-source interactive maps
+- **OpenStreetMap Nominatim** — Free geocoding API
+- **Nodemailer** — Email notifications
+- **i18n** — Internationalization (EN + HI)
+
+---
+
+## 📋 Updated API Endpoints
+
+### Bookings
+- `GET /listings/:id/book` — Booking form
+- `POST /listings/:id/book` — Create booking
+- `GET /bookings` — My bookings list
+- `GET /bookings/:id/confirmation` — Booking confirmation
+- `POST /bookings/:id/cancel` — Cancel booking
+
+### Chat
+- `GET /chat` — Inbox
+- `GET /chat/:userId` — Conversation
+- `POST /chat/:userId` — Send message
+- `GET /listings/:id/contact-host` — Contact host
+
+### Profile & Favorites
+- `GET /profile/:userId` — View profile
+- `GET /profile/edit/me` — Edit profile form
+- `POST /profile/edit/me` — Update profile
+- `POST /favorites/:listingId/toggle` — Toggle favorite (AJAX)
+- `GET /favorites` — My wishlist
+
+### Admin
+- `GET /admin/dashboard` — Admin dashboard
+- `GET /admin/listings` — Manage listings
+- `DELETE /admin/listings/:id` — Delete listing
+- `GET /admin/users` — Manage users
+- `POST /admin/users/:id/toggle-admin` — Toggle admin
+- `DELETE /admin/users/:id` — Delete user
+- `GET /admin/bookings` — Manage bookings
+
+### Language
+- `GET /lang/:locale` — Switch language (en/hi)
+
+---
+
+## ⚙️ Setup for New Features
+
+### Email Notifications (Optional)
+Add to your `.env`:
+```env
+EMAIL_USER=your_gmail@gmail.com
+EMAIL_PASS=your_gmail_app_password
+```
+> Generate an App Password at: https://myaccount.google.com/apppasswords
+
+### First Admin User
+To make yourself an admin, run in MongoDB shell:
+```js
+db.users.updateOne({ username: "your_username" }, { $set: { isAdmin: true } })
+```
+
+---
+
 ## 🚧 Future Enhancements
 
-- [ ] Add booking functionality with calendar
-- [ ] Implement payment gateway integration
-- [ ] Add advanced search with filters
-- [ ] Include map integration for locations
-- [ ] Add user profiles with favorite listings
-- [ ] Implement email notifications
-- [ ] Add chat functionality between hosts and guests
-- [ ] Mobile app development
-- [ ] Multi-language support
-- [ ] Admin dashboard for platform management
+- [x] Add booking functionality with calendar ✅
+- [x] Add advanced search with filters ✅
+- [x] Include map integration for locations ✅
+- [x] Add user profiles with favorite listings ✅
+- [x] Implement email notifications ✅
+- [x] Add chat functionality between hosts and guests ✅
+- [x] Multi-language support ✅
+- [x] Admin dashboard for platform management ✅
+- [ ] Payment gateway integration (Razorpay) — Coming Soon
+- [ ] Mobile app development — Planned

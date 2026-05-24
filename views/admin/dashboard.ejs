@@ -1,0 +1,129 @@
+<% layout("/layouts/boilerplate") %>
+
+<div class="admin-page">
+  <div class="admin-header">
+    <h2><i class="fa-solid fa-shield text-danger"></i> Admin Dashboard</h2>
+    <p class="text-muted">Platform overview and management</p>
+  </div>
+
+  <!-- Stats Grid -->
+  <div class="admin-stats-grid">
+    <div class="stat-card stat-blue">
+      <div class="stat-icon"><i class="fa-solid fa-home"></i></div>
+      <div class="stat-info">
+        <h3><%= stats.totalListings %></h3>
+        <p>Total Listings</p>
+      </div>
+    </div>
+    <div class="stat-card stat-green">
+      <div class="stat-icon"><i class="fa-solid fa-users"></i></div>
+      <div class="stat-info">
+        <h3><%= stats.totalUsers %></h3>
+        <p>Total Users</p>
+      </div>
+    </div>
+    <div class="stat-card stat-orange">
+      <div class="stat-icon"><i class="fa-solid fa-calendar-check"></i></div>
+      <div class="stat-info">
+        <h3><%= stats.totalBookings %></h3>
+        <p>Total Bookings</p>
+      </div>
+    </div>
+    <div class="stat-card stat-purple">
+      <div class="stat-icon"><i class="fa-solid fa-star"></i></div>
+      <div class="stat-info">
+        <h3><%= stats.totalReviews %></h3>
+        <p>Total Reviews</p>
+      </div>
+    </div>
+    <div class="stat-card stat-red">
+      <div class="stat-icon"><i class="fa-solid fa-indian-rupee-sign"></i></div>
+      <div class="stat-info">
+        <h3>₹<%= stats.totalRevenue?.toLocaleString("en-IN") || "0" %></h3>
+        <p>Platform Revenue</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick Nav -->
+  <div class="admin-quick-nav mt-4">
+    <a href="/admin/listings" class="admin-nav-card">
+      <i class="fa-solid fa-home"></i>
+      <span>Manage Listings</span>
+    </a>
+    <a href="/admin/users" class="admin-nav-card">
+      <i class="fa-solid fa-users"></i>
+      <span>Manage Users</span>
+    </a>
+    <a href="/admin/bookings" class="admin-nav-card">
+      <i class="fa-solid fa-calendar-check"></i>
+      <span>Manage Bookings</span>
+    </a>
+  </div>
+
+  <!-- Recent Bookings -->
+  <div class="admin-section mt-5">
+    <h5>Recent Bookings</h5>
+    <div class="table-responsive">
+      <table class="table table-hover admin-table">
+        <thead>
+          <tr>
+            <th>Listing</th>
+            <th>Guest</th>
+            <th>Check-in</th>
+            <th>Check-out</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% for(let booking of recentBookings) { %>
+          <tr>
+            <td><%= booking.listing ? booking.listing.title : 'N/A' %></td>
+            <td><%= booking.guest ? booking.guest.username : 'N/A' %></td>
+            <td><%= new Date(booking.checkIn).toLocaleDateString("en-IN") %></td>
+            <td><%= new Date(booking.checkOut).toLocaleDateString("en-IN") %></td>
+            <td><span class="booking-status-badge status-<%= booking.status %>"><%= booking.status %></span></td>
+          </tr>
+          <% } %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Recent Listings -->
+  <div class="admin-section mt-4">
+    <h5>Recently Added Listings</h5>
+    <div class="table-responsive">
+      <table class="table table-hover admin-table">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Owner</th>
+            <th>Location</th>
+            <th>Category</th>
+            <th>Price</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% for(let listing of recentListings) { %>
+          <tr>
+            <td><a href="/listings/<%= listing._id %>" class="text-dark"><%= listing.title %></a></td>
+            <td><%= listing.owner ? listing.owner.username : 'N/A' %></td>
+            <td><%= listing.location %></td>
+            <td><%= listing.category %></td>
+            <td>₹<%= listing.price?.toLocaleString("en-IN") %></td>
+            <td>
+              <form action="/admin/listings/<%= listing._id %>?_method=DELETE" method="POST" class="d-inline">
+                <button class="btn btn-sm btn-outline-danger" onclick="return confirm('Delete this listing?')">
+                  <i class="fa-solid fa-trash"></i>
+                </button>
+              </form>
+            </td>
+          </tr>
+          <% } %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -5,27 +5,56 @@
     color: #fff;
     border-radius: 25px;
     padding: 0 1rem 0 1rem;
+    white-space: nowrap;
   }
   .search-btn:hover {
-    background-color: #FF385C;
+    background-color: #e31c5f;
     color: #fff;
   }
-
   .search-btn i {
     display: inline;
     margin-right: 0.5rem;
   }
-
   .search-inp {
     border-radius: 25px;
-    padding: 0.5rem 3rem 0.5rem 3rem;
+    padding: 0.5rem 1.2rem;
     font-size: 1rem;
+  }
+  .nav-badge {
+    background: #FF385C;
+    color: white;
+    font-size: 0.65rem;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    top: -8px;
+    right: 4px;
+  }
+  .lang-toggle {
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 20px;
+    border: 1.5px solid #e5e7eb;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: transparent;
+    color: #374151;
+    text-decoration: none;
+  }
+  .lang-toggle:hover {
+    border-color: #FF385C;
+    color: #FF385C;
   }
 </style>
 
 <nav class="navbar navbar-expand-md bg-body-light border-bottom sticky-top">
   <div class="container-fluid">
-    <a class="navbar-brand d-flex align-items-center gap-1" href="/"><i class="fa-solid fa-house"></i></i>
+    <a class="navbar-brand d-flex align-items-center gap-1" href="/"><i class="fa-solid fa-house"></i>
       <span class="brand-text">StayNest</span>
     </a>
 
@@ -36,39 +65,60 @@
         data-bs-target="#navbarNavAltMarkup" >
       <span class="navbar-toggler-icon"></span>
     </button>
+
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-
-      <!-- <div class="navbar-nav">
-        <a class="nav-link" href="/listings">Explore</a>
-      </div> -->
-
 
       <div class="navbar-nav ms-auto">
         <form class="d-flex" role="search" action="/listings" method="GET">
-        <input 
-          class="form-control me-2 search-inp" 
-          type="search"
-          name="search"
-          placeholder="Search destinations"
-        />
-        <button class="btn search-btn" type="submit">
-          <i class="fa-solid fa-magnifying-glass"></i>Search
-        </button>
-      </form>
+          <input 
+            class="form-control me-2 search-inp" 
+            type="search"
+            name="search"
+            placeholder="Search destinations"
+            value="<%= typeof filters !== 'undefined' && filters.search ? filters.search : '' %>"
+          />
+          <button class="btn search-btn" type="submit">
+            <i class="fa-solid fa-magnifying-glass"></i>Search
+          </button>
+        </form>
       </div>
 
-
-      <div class="navbar-nav ms-auto">
+      <div class="navbar-nav ms-auto d-flex align-items-center gap-1 flex-row flex-wrap">
         <a class="nav-link host-link" href="/listings/new">Host your place <i class="fa-solid fa-house-circle-check"></i></a>
+        
         <% if(!currUser) { %>
         <a class="nav-link" href="/signup"><b>Sign up</b></a>
         <a class="nav-link" href="/login"><b>Log in</b></a>
         <% } %>
 
         <% if(currUser) { %>
+        <!-- Inbox with unread badge -->
+        <a class="nav-link" href="/chat" title="Inbox">
+          <i class="fa-solid fa-envelope"></i>
+          <% if(unreadMessages > 0) { %>
+            <span class="nav-badge"><%= unreadMessages %></span>
+          <% } %>
+        </a>
+        <!-- Wishlist -->
+        <a class="nav-link" href="/favorites" title="Wishlist"><i class="fa-solid fa-heart"></i></a>
+        <!-- Bookings -->
+        <a class="nav-link" href="/bookings" title="My Bookings"><i class="fa-solid fa-calendar-check"></i></a>
+        <!-- Profile -->
+        <a class="nav-link" href="/profile/<%= currUser._id %>" title="Profile"><i class="fa-solid fa-user-circle"></i></a>
+        <!-- Admin -->
+        <% if(currUser.isAdmin) { %>
+        <a class="nav-link text-danger" href="/admin/dashboard" title="Admin Panel"><i class="fa-solid fa-shield"></i></a>
+        <% } %>
         <a class="nav-link" href="/logout"><b>Log out</b></a>
         <% } %>
 
+        <!-- Language Toggle -->
+        <% const currentLang = typeof locale !== 'undefined' ? locale : 'en'; %>
+        <% if(currentLang === 'en') { %>
+        <a href="/lang/hi" class="lang-toggle" title="Switch to Hindi">🇮🇳 हिं</a>
+        <% } else { %>
+        <a href="/lang/en" class="lang-toggle" title="Switch to English">🇬🇧 EN</a>
+        <% } %>
       </div>
 
     </div>

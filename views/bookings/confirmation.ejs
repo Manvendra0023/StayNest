@@ -1,0 +1,62 @@
+<% layout("/layouts/boilerplate") %>
+
+<div class="confirmation-page">
+  <div class="confirmation-card">
+    
+    <!-- Success animation -->
+    <div class="confirmation-icon">
+      <div class="success-circle">
+        <i class="fa-solid fa-check"></i>
+      </div>
+    </div>
+
+    <h2 class="confirmation-title">Booking Confirmed! 🎉</h2>
+    <p class="text-muted">A confirmation email has been sent to <strong><%= booking.guest.email %></strong></p>
+
+    <div class="booking-details-card">
+      <h5><%= booking.listing.title %></h5>
+      <p class="text-muted"><i class="fa-solid fa-location-dot text-danger"></i> <%= booking.listing.location %>, <%= booking.listing.country %></p>
+      
+      <div class="booking-detail-grid">
+        <div class="detail-item">
+          <i class="fa-solid fa-arrow-right-to-bracket text-danger"></i>
+          <div>
+            <small class="text-muted">Check-in</small>
+            <p class="fw-semibold mb-0"><%= new Date(booking.checkIn).toDateString() %></p>
+          </div>
+        </div>
+        <div class="detail-item">
+          <i class="fa-solid fa-arrow-right-from-bracket text-danger"></i>
+          <div>
+            <small class="text-muted">Check-out</small>
+            <p class="fw-semibold mb-0"><%= new Date(booking.checkOut).toDateString() %></p>
+          </div>
+        </div>
+        <div class="detail-item">
+          <i class="fa-solid fa-users text-danger"></i>
+          <div>
+            <small class="text-muted">Guests</small>
+            <p class="fw-semibold mb-0"><%= booking.guests %></p>
+          </div>
+        </div>
+        <div class="detail-item">
+          <i class="fa-solid fa-indian-rupee-sign text-danger"></i>
+          <div>
+            <small class="text-muted">Total Paid</small>
+            <p class="fw-semibold mb-0">₹<%= booking.totalPrice?.toLocaleString("en-IN") %></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="booking-id-badge mt-3">
+        <small class="text-muted">Booking ID: <code><%= booking._id %></code></small>
+      </div>
+    </div>
+
+    <div class="confirmation-actions mt-4">
+      <a href="/bookings" class="btn btn-danger">View My Bookings</a>
+      <a href="/listings" class="btn btn-outline-dark ms-2">Explore More</a>
+    </div>
+
+  </div>
+</div>

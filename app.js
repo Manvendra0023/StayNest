@@ -16,11 +16,17 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
 const categories = require("./utils/categories.js");
+const i18n = require("i18n");
+const Message = require("./models/message.js");
 
 
 const listingRouter = require("./routes/listing.js");
 const reviewRouter = require("./routes/review.js");
-const userRouter = require("./routes/user.js")
+const userRouter = require("./routes/user.js");
+const bookingRouter = require("./routes/booking.js");
+const chatRouter = require("./routes/chat.js");
+const profileRouter = require("./routes/profile.js");
+const adminRouter = require("./routes/admin.js");
 
 
 //connecting Database to Node/Express.
@@ -39,12 +45,26 @@ async function main(){
 }
 
 
+// i18n Configuration
+i18n.configure({
+    locales: ["en", "hi"],
+    directory: path.join(__dirname, "locales"),
+    defaultLocale: "en",
+    cookie: "lang",
+    autoReload: true,
+    updateFiles: false,
+    objectNotation: true,
+});
+
+
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 app.use(express.urlencoded({extended: true}));
+app.use(express.json());
 app.use(methodOverride("_method"));
 app.engine('ejs', ejsMate);
 app.use(express.static(path.join(__dirname, "/public")));
+app.use(i18n.init);
 
 
 // session setup & cookie--> 
@@ -99,6 +119,33 @@ app.use((req, res, next) => {
   next();
 });
 
+// Language switcher
+app.get("/lang/:locale", (req, res) => {
+    const { locale } = req.params;
+    if (["en", "hi"].includes(locale)) {
+        res.cookie("lang", locale, { maxAge: 365 * 24 * 60 * 60 * 1000 });
+        // Also save to user profile if logged in
+        if (req.user) {
+            User.findByIdAndUpdate(req.user._id, { language: locale }).catch(() => {});
+        }
+    }
+    res.redirect("back");
+});
+
+// Unread message count for navbar
+app.use(async (req, res, next) => {
+    if (req.user) {
+        try {
+            res.locals.unreadMessages = await Message.countDocuments({ receiver: req.user._id, read: false });
+        } catch (e) {
+            res.locals.unreadMessages = 0;
+        }
+    } else {
+        res.locals.unreadMessages = 0;
+    }
+    next();
+});
+
 
 //HOME PAGE ROUTE 
 app.get("/", (req, res) => {
@@ -107,7 +154,7 @@ app.get("/", (req, res) => {
 
 
 // For Listings Route
-app.use("/listings", listingRouter);
+app.use("/", listingRouter);
 
 // For Reviews Route
 app.use("/listings/:id/reviews", reviewRouter);
@@ -115,7 +162,19 @@ app.use("/listings/:id/reviews", reviewRouter);
 //user
 app.use("/", userRouter);
 
-//healt cheack
+// Bookings
+app.use("/", bookingRouter);
+
+// Chat
+app.use("/", chatRouter);
+
+// Profile & Favorites
+app.use("/", profileRouter);
+
+// Admin
+app.use("/", adminRouter);
+
+//health check
 app.get("/healthz", (req, res) => {
     res.status(200).send("OK");
 });

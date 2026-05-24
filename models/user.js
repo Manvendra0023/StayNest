@@ -7,6 +7,30 @@ const userSchema = new Schema({
         type: String,
         required: true,
     },
+    bio: {
+        type: String,
+        default: "",
+        maxlength: 500,
+    },
+    avatar: {
+        url: { type: String, default: "" },
+        filename: { type: String, default: "" },
+    },
+    favorites: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: "Listing",
+        },
+    ],
+    isAdmin: {
+        type: Boolean,
+        default: false,
+    },
+    language: {
+        type: String,
+        enum: ["en", "hi"],
+        default: "en",
+    },
 });
 
 userSchema.plugin(passportLocalMongoose);

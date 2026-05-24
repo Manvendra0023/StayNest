@@ -1,0 +1,53 @@
+<% layout("/layouts/boilerplate") %>
+
+<div class="admin-page">
+  <div class="admin-header">
+    <h2><i class="fa-solid fa-home text-danger"></i> Manage Listings</h2>
+    <a href="/admin/dashboard" class="btn btn-outline-secondary btn-sm">← Dashboard</a>
+  </div>
+
+  <form action="/admin/listings" method="GET" class="admin-search-form mb-3">
+    <div class="input-group">
+      <input type="text" name="search" class="form-control" placeholder="Search listings..." value="<%= search || '' %>">
+      <button class="btn btn-danger" type="submit">Search</button>
+      <% if(search) { %><a href="/admin/listings" class="btn btn-outline-secondary">Clear</a><% } %>
+    </div>
+  </form>
+
+  <div class="table-responsive">
+    <table class="table table-hover admin-table">
+      <thead>
+        <tr>
+          <th>Image</th>
+          <th>Title</th>
+          <th>Owner</th>
+          <th>Location</th>
+          <th>Category</th>
+          <th>Price/night</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% for(let listing of listings) { %>
+        <tr>
+          <td>
+            <img src="<%= listing.image?.url || '/images/default.jpg' %>" width="60" height="40" style="object-fit:cover;border-radius:6px;">
+          </td>
+          <td><a href="/listings/<%= listing._id %>" target="_blank" class="text-dark"><%= listing.title %></a></td>
+          <td><%= listing.owner ? listing.owner.username : 'N/A' %></td>
+          <td><%= listing.location %>, <%= listing.country %></td>
+          <td><span class="badge bg-secondary"><%= listing.category %></span></td>
+          <td>₹<%= listing.price?.toLocaleString("en-IN") %></td>
+          <td>
+            <a href="/listings/<%= listing._id %>/edit" class="btn btn-sm btn-outline-dark me-1">Edit</a>
+            <form action="/admin/listings/<%= listing._id %>?_method=DELETE" method="POST" class="d-inline">
+              <button class="btn btn-sm btn-danger" onclick="return confirm('Delete this listing permanently?')">Delete</button>
+            </form>
+          </td>
+        </tr>
+        <% } %>
+      </tbody>
+    </table>
+  </div>
+  <p class="text-muted"><%= listings.length %> listing(s) found</p>
+</div>

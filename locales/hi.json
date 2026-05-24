@@ -1,0 +1,77 @@
+{
+  "nav": {
+    "explore": "खोजें",
+    "host": "अपना स्थान होस्ट करें",
+    "login": "लॉग इन",
+    "signup": "साइन अप",
+    "logout": "लॉग आउट",
+    "profile": "मेरी प्रोफ़ाइल",
+    "bookings": "मेरी बुकिंग",
+    "inbox": "इनबॉक्स",
+    "favorites": "विशलिस्ट",
+    "admin": "एडमिन"
+  },
+  "home": {
+    "hero": "अपना अगला ठहराव खोजें",
+    "tagline": "StayNest - घर से दूर अपना आराम खोजें",
+    "subtitle": "दुनिया में कहीं भी अनोखी जगहों की खोज करें",
+    "explore": "ठहराव देखें",
+    "featured": "फीचर्ड ठहराव",
+    "viewAll": "सभी देखें →",
+    "destinations": "लोकप्रिय गंतव्य",
+    "destinationsSubtitle": "हमारे सबसे अधिक देखे जाने वाले स्थान खोजें",
+    "host": "क्या आपके पास संपत्ति है?",
+    "hostSub": "StayNest पर अपनी संपत्ति सूचीबद्ध करें और हजारों यात्रियों तक पहुंचें।"
+  },
+  "listing": {
+    "allListings": "सभी लिस्टिंग",
+    "noResults": "आपकी खोज से मेल खाते कोई ठहराव नहीं मिले।",
+    "perNight": "/ रात",
+    "gst": "+18% GST",
+    "totalTax": "करों के बाद कुल दिखाएं",
+    "category": "श्रेणी",
+    "description": "विवरण",
+    "price": "कीमत",
+    "location": "स्थान",
+    "country": "देश",
+    "ownedBy": "के स्वामित्व में",
+    "book": "अभी बुक करें",
+    "contactHost": "होस्ट से संपर्क करें",
+    "update": "अपडेट करें",
+    "delete": "हटाएं"
+  },
+  "booking": {
+    "checkIn": "चेक-इन तिथि",
+    "checkOut": "चेक-आउट तिथि",
+    "guests": "अतिथि",
+    "totalPrice": "कुल कीमत",
+    "confirm": "बुकिंग की पुष्टि करें",
+    "nights": "रातें",
+    "perNight": "प्रति रात",
+    "myBookings": "मेरी बुकिंग",
+    "cancel": "बुकिंग रद्द करें",
+    "status": "स्थिति",
+    "confirmed": "पुष्टि की गई",
+    "pending": "लंबित",
+    "cancelled": "रद्द किया गया"
+  },
+  "auth": {
+    "login": "लॉग इन",
+    "signup": "StayNest पर साइन अप करें",
+    "username": "उपयोगकर्ता नाम",
+    "email": "ईमेल",
+    "password": "पासवर्ड",
+    "submit": "जमा करें"
+  },
+  "footer": {
+    "brand": "© StayNest प्राइवेट लिमिटेड",
+    "about": "हमारे बारे में",
+    "careers": "करियर",
+    "contact": "संपर्क",
+    "help": "सहायता",
+    "privacy": "गोपनीयता",
+    "terms": "नियम",
+    "cookies": "कुकीज़",
+    "gdpr": "GDPR"
+  }
+}

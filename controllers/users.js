@@ -1,4 +1,5 @@
 const User = require("../models/user");
+const { sendWelcomeEmail } = require("../utils/mailer");
 
 
 module.exports.renderSignupForm = (req, res) => {
@@ -10,7 +11,8 @@ module.exports.signup = async(req, res, next) => {
         let {username, email, password} = req.body;
         const newUser = new User({email, username});
         const registeredUser = await User.register(newUser, password);
-        console.log(registeredUser);
+        // Send welcome email (non-blocking)
+        sendWelcomeEmail({ email, username }).catch(() => {});
         req.login(registeredUser, (err) => {
             if(err){
                 return next(err);

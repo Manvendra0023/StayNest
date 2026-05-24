@@ -1,0 +1,40 @@
+<% layout("/layouts/boilerplate") %>
+
+<div class="admin-page">
+  <div class="admin-header">
+    <h2><i class="fa-solid fa-calendar-check text-danger"></i> Manage Bookings</h2>
+    <a href="/admin/dashboard" class="btn btn-outline-secondary btn-sm">← Dashboard</a>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table table-hover admin-table">
+      <thead>
+        <tr>
+          <th>Booking ID</th>
+          <th>Listing</th>
+          <th>Guest</th>
+          <th>Check-in</th>
+          <th>Check-out</th>
+          <th>Guests</th>
+          <th>Total</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% for(let booking of bookings) { %>
+        <tr>
+          <td><small class="text-muted"><code><%= booking._id.toString().slice(-8) %></code></small></td>
+          <td><%= booking.listing ? booking.listing.title : 'N/A' %></td>
+          <td><%= booking.guest ? booking.guest.username : 'N/A' %></td>
+          <td><%= new Date(booking.checkIn).toLocaleDateString("en-IN") %></td>
+          <td><%= new Date(booking.checkOut).toLocaleDateString("en-IN") %></td>
+          <td><%= booking.guests %></td>
+          <td>₹<%= booking.totalPrice?.toLocaleString("en-IN") %></td>
+          <td><span class="booking-status-badge status-<%= booking.status %>"><%= booking.status %></span></td>
+        </tr>
+        <% } %>
+      </tbody>
+    </table>
+  </div>
+  <p class="text-muted"><%= bookings.length %> booking(s) total</p>
+</div>

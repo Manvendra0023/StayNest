@@ -1,0 +1,56 @@
+<% layout("/layouts/boilerplate") %>
+
+<div class="chat-page">
+  <div class="chat-container">
+    <div class="chat-top-bar">
+      <a href="/chat" class="btn btn-sm btn-outline-secondary">← Back</a>
+      <div class="chat-user-info">
+        <div class="chat-avatar"><%= otherUser.username.charAt(0).toUpperCase() %></div>
+        <strong>@<%= otherUser.username %></strong>
+      </div>
+    </div>
+
+    <div class="chat-messages" id="chatMessages">
+      <% if(messages.length === 0) { %>
+      <div class="chat-empty">
+        <p class="text-muted">Start the conversation!</p>
+      </div>
+      <% } %>
+      <% for(let msg of messages) { %>
+        <div class="chat-bubble-wrapper <%= msg.sender._id.equals(currUser._id) ? 'mine' : 'theirs' %>">
+          <div class="chat-bubble">
+            <% if(msg.listing) { %>
+            <small class="bubble-context"><i class="fa-solid fa-home"></i> Re: <%= msg.listing.title %></small>
+            <% } %>
+            <p class="mb-0"><%= msg.text %></p>
+            <small class="bubble-time"><%= new Date(msg.createdAt).toLocaleString("en-IN", {hour:'2-digit',minute:'2-digit',month:'short',day:'numeric'}) %></small>
+          </div>
+        </div>
+      <% } %>
+    </div>
+
+    <form action="/chat/<%= otherUser._id %>" method="POST" class="chat-input-bar">
+      <input type="hidden" name="listingId" value="<%= typeof query !== 'undefined' && query.listingId ? query.listingId : '' %>">
+      <input 
+        type="text" 
+        name="text" 
+        class="form-control chat-input"
+        placeholder="Type a message..."
+        required
+        autocomplete="off"
+        id="chatInput"
+      >
+      <button type="submit" class="btn btn-danger chat-send-btn">
+        <i class="fa-solid fa-paper-plane"></i>
+      </button>
+    </form>
+  </div>
+</div>
+
+<script>
+  // Auto-scroll to bottom
+  const chatMessages = document.getElementById("chatMessages");
+  if(chatMessages) chatMessages.scrollTop = chatMessages.scrollHeight;
+  // Auto-focus input
+  document.getElementById("chatInput").focus();
+</script>

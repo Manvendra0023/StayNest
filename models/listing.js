@@ -20,6 +20,19 @@ const listingSchema = new Schema({
     location: String,
     country: String,
 
+    // Map coordinates (geocoded)
+    geometry: {
+        lat: { type: Number, default: null },
+        lng: { type: Number, default: null },
+    },
+
+    // Booking-related
+    maxGuests: {
+        type: Number,
+        default: 4,
+        min: 1,
+    },
+
     reviews: [
         {
             type: Schema.Types.ObjectId,

@@ -70,3 +70,13 @@ module.exports.isReviewAuthor = async (req, res, next) => {
     }
     next();
 };
+
+
+// Admin middleware
+module.exports.isAdmin = (req, res, next) => {
+    if (!req.user || !req.user.isAdmin) {
+        req.flash("error", "You do not have admin privileges!");
+        return res.redirect("/listings");
+    }
+    next();
+};

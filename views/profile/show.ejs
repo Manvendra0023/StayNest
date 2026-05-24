@@ -1,0 +1,57 @@
+<% layout("/layouts/boilerplate") %>
+
+<div class="profile-page">
+  <div class="profile-hero">
+    <div class="profile-avatar-wrap">
+      <% if(profileUser.avatar && profileUser.avatar.url) { %>
+      <img src="<%= profileUser.avatar.url %>" alt="Avatar" class="profile-avatar-img">
+      <% } else { %>
+      <div class="profile-avatar-placeholder"><%= profileUser.username.charAt(0).toUpperCase() %></div>
+      <% } %>
+    </div>
+    <div class="profile-hero-info">
+      <h2>@<%= profileUser.username %></h2>
+      <p class="text-muted"><%= profileUser.bio || "No bio yet." %></p>
+      <div class="profile-stats">
+        <div class="stat-item">
+          <strong><%= listings.length %></strong>
+          <span>Listings</span>
+        </div>
+        <div class="stat-item">
+          <strong><%= profileUser.favorites ? profileUser.favorites.length : 0 %></strong>
+          <span>Favorites</span>
+        </div>
+      </div>
+      <% if(isOwner) { %>
+      <a href="/profile/edit/me" class="btn btn-outline-dark btn-sm mt-2">
+        <i class="fa-solid fa-pen"></i> Edit Profile
+      </a>
+      <% } %>
+    </div>
+  </div>
+
+  <!-- User's Listings -->
+  <% if(listings.length > 0) { %>
+  <section class="profile-listings mt-4">
+    <h4><i class="fa-solid fa-home text-danger"></i> Listings by @<%= profileUser.username %></h4>
+    <div class="listings mt-3">
+      <% for(let listing of listings) { %>
+      <a href="/listings/<%= listing._id %>" class="listing-link">
+        <div class="card listing-card">
+          <img 
+            src="<%= listing.image?.url || '/images/default.jpg' %>" 
+            class="card-img-top"
+            alt="<%= listing.title %>"
+            loading="lazy"
+          />
+          <div class="card-body">
+            <p class="card-text mb-1"><strong><%= listing.title %></strong></p>
+            <p class="mb-0">&#8377; <%= listing.price?.toLocaleString("en-IN") %> / night</p>
+          </div>
+        </div>
+      </a>
+      <% } %>
+    </div>
+  </section>
+  <% } %>
+</div>

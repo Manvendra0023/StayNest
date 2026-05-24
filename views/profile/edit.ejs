@@ -1,0 +1,43 @@
+<% layout("/layouts/boilerplate") %>
+
+<div class="row mt-4">
+  <div class="col-md-8 offset-md-2">
+    <h3><i class="fa-solid fa-user-pen text-danger"></i> Edit Profile</h3>
+    <hr>
+
+    <form action="/profile/edit/me" method="POST" enctype="multipart/form-data" class="needs-validation" novalidate>
+      
+      <!-- Avatar Preview -->
+      <div class="mb-4 text-center">
+        <% if(user.avatar && user.avatar.url) { %>
+        <img src="<%= user.avatar.url %>" alt="Current Avatar" class="profile-edit-avatar mb-2">
+        <% } else { %>
+        <div class="profile-edit-avatar-placeholder mb-2"><%= user.username.charAt(0).toUpperCase() %></div>
+        <% } %>
+        <label class="form-label d-block fw-semibold">Profile Photo</label>
+        <input type="file" name="avatar" accept="image/*" class="form-control">
+        <small class="text-muted">Recommended: square image, at least 200×200px</small>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label fw-semibold">Username</label>
+        <input type="text" class="form-control" value="<%= user.username %>" disabled>
+        <small class="text-muted">Username cannot be changed</small>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label fw-semibold">Email</label>
+        <input type="email" class="form-control" value="<%= user.email %>" disabled>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label fw-semibold">Bio</label>
+        <textarea name="bio" class="form-control" rows="4" maxlength="500" placeholder="Tell guests about yourself..."><%= user.bio || '' %></textarea>
+        <small class="text-muted">Max 500 characters</small>
+      </div>
+
+      <button type="submit" class="btn btn-danger">Save Changes</button>
+      <a href="/profile/<%= user._id %>" class="btn btn-outline-secondary ms-2">Cancel</a>
+    </form>
+  </div>
+</div>

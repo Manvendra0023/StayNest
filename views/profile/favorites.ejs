@@ -1,0 +1,46 @@
+<% layout("/layouts/boilerplate") %>
+
+<div class="page-header mt-3">
+  <h2><i class="fa-solid fa-heart text-danger"></i> My Wishlist</h2>
+  <p class="text-muted">Your saved favorite listings</p>
+</div>
+
+<% if(favorites.length === 0) { %>
+<div class="empty-state">
+  <div class="empty-icon">❤️</div>
+  <h4>Your wishlist is empty</h4>
+  <p>Browse listings and tap the heart ❤️ to save your favorites!</p>
+  <a href="/listings" class="btn btn-danger mt-2">Explore Stays</a>
+</div>
+<% } %>
+
+<div class="listings mt-3">
+  <% for(let listing of favorites) { %>
+  <div class="listing-item-wrapper">
+    <button 
+      class="fav-btn fav-active" 
+      data-listing-id="<%= listing._id %>"
+      title="Remove from Wishlist"
+    >
+      <i class="fa-heart fa-solid"></i>
+    </button>
+    <a href="/listings/<%= listing._id %>" class="listing-link">
+      <div class="card listing-card">
+        <img 
+          src="<%= listing.image?.url || '/images/default.jpg' %>" 
+          class="card-img-top"
+          alt="<%= listing.title %>"
+          loading="lazy"
+        />
+        <div class="card-body">
+          <p class="card-text mb-1"><strong><%= listing.title %></strong></p>
+          <p class="card-text mb-0 location-text">
+            <i class="fa-solid fa-location-dot text-danger"></i> <%= listing.location %>, <%= listing.country %>
+          </p>
+          <p class="mb-0">&#8377; <%= listing.price?.toLocaleString("en-IN") %> / night</p>
+        </div>
+      </div>
+    </a>
+  </div>
+  <% } %>
+</div>
